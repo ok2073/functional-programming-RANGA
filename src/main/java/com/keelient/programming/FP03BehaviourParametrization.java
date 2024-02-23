@@ -67,6 +67,4 @@ public class FP03BehaviourParametrization {
                 .map(mappingFunction)
                 .collect(Collectors.toList());
     }
-
-
 }
