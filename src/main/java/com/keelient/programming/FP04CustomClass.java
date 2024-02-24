@@ -6,9 +6,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.Comparator;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
@@ -111,5 +109,31 @@ public class FP04CustomClass {
                 .filter(course -> course.getReviewScore() > 100)
                 .findAny();
         System.out.println("any: " + any);
+        System.out.println("----------------------------------------------------------------------------");
+        int sum = courses.stream()
+                .filter(reviewScoreGreaterThan95Predicate)
+                .mapToInt(Course::getNoOfStudents)
+                .sum();
+        System.out.println("sum: " + sum);
+        System.out.println("----------------------------------------------------------------------------");
+        OptionalDouble average = courses.stream()
+                .filter(reviewScoreGreaterThan95Predicate)
+                .mapToInt(Course::getNoOfStudents)
+                .average();
+        System.out.println("average: " + average.getAsDouble() );
+        System.out.println("----------------------------------------------------------------------------");
+        long count = courses.stream()
+                .filter(reviewScoreGreaterThan95Predicate)
+                .mapToInt(Course::getNoOfStudents)
+                .count();
+        System.out.println("count: " + count);
+        System.out.println("----------------------------------------------------------------------------");
+        OptionalInt optionalInt = courses.stream()
+                .filter(reviewScoreGreaterThan95Predicate)
+                .mapToInt(Course::getNoOfStudents)
+                .max();
+        System.out.println("max: " + optionalInt.getAsInt());
+
+
     }
 }
