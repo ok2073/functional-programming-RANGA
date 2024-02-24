@@ -133,6 +133,24 @@ public class FP04CustomClass {
                 .mapToInt(Course::getNoOfStudents)
                 .max();
         System.out.println("max: " + optionalInt.getAsInt());
+        System.out.println("----------------------------------------------------------------------------");
+        Map<String, List<Course>> groupingBy = courses.stream()
+                .collect(Collectors.groupingBy(Course::getCategory));
+        System.out.println("groupingBy: " + groupingBy);
+        System.out.println("----------------------------------------------------------------------------");
+        Map<String, Long> groupingByAndCount = courses.stream()
+                .collect(Collectors.groupingBy(Course::getCategory, Collectors.counting()));
+        System.out.println("groupingByAndCount: " + groupingByAndCount);
+        System.out.println("----------------------------------------------------------------------------");
+        Map<String, Optional<Course>> groupByMaxBy = courses.stream()
+                                                .collect(Collectors.groupingBy(Course::getCategory,
+                                                        Collectors.maxBy(Comparator.comparing(Course::getReviewScore))));
+        System.out.println("groupByMaxBy: " + groupByMaxBy);
+        System.out.println("----------------------------------------------------------------------------");
+        Map<String, List<String>> collect = courses.stream()
+                .collect(Collectors.groupingBy(Course::getCategory,
+                        Collectors.mapping(Course::getName, Collectors.toList())));
+        System.out.println("collect: " + collect);
 
 
     }
